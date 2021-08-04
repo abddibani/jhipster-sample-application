@@ -1,0 +1,83 @@
+
+application {
+  config {
+    baseName platform,
+    applicationType monolith,
+    packageName com.platform,
+    authenticationType jwt,
+    prodDatabaseType mongodb,
+    clientFramework angular
+  }
+  entities *
+  dto * with mapstruct
+  service * with serviceClass
+}
+
+entity Account {
+	id String,
+    email String,
+    username String,
+    password String,
+    activated Bool
+}
+
+entity Customer {
+	id String,
+    email String,
+    lastname String,
+    firstname String,
+    phone String,
+    createAt LocalDate,
+    modifiedAt LocalDate
+}
+
+entity Exchange {
+	id String,
+    name String,
+    apikey String,
+    secrit String,
+    activated Boolean,
+    createAt LocalDate,
+    modifiedAt LocalDate
+}
+
+entity Order {
+	id String,
+    symbol String,
+    price BigDecimal,
+    quantity BigDecimal,
+	createAt LocalDate,
+    modifiedAt LocalDate,
+    completed Boolean,
+    failed Boolean
+}
+
+entity Tracker {
+	id String,
+    activated Boolean,
+    createAt LocalDate,
+    modifiedAt LocalDate,
+    activationBegin LocalDate,
+    activationEnd LocalDate
+}
+
+relationship OneToMany {
+  Account to Exchange
+}
+
+relationship OneToMany {
+  Account to Order
+}
+
+relationship OneToMany {
+  Account to Tracker
+}
+
+relationship OneToOne {
+  Tracker to Account
+}
+
+relationship OneToOne {
+  Account to Customer
+}
+    
